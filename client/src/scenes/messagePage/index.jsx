@@ -14,10 +14,13 @@ const MessagePage = () => {
   const [isData, setIsData] = useState(false);
 
   const getAllUsers = async () => {
-    const response = await fetch(`http://localhost:4001/users/allusers/users`, {
-      method: "GET",
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const response = await fetch(
+      `https://social-mitra-29kz.vercel.app/users/allusers/users`,
+      {
+        method: "GET",
+        headers: { Authorization: `Bearer ${token}` },
+      }
+    );
     const data = await response.json();
     console.log(`data : `, data);
     // setUser(data);
