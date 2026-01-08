@@ -20,17 +20,43 @@ const HomePage = () => {
         display={isNonMobileScreens ? "flex" : "block"}
         gap="0.5rem"
         justifyContent="space-between"
+        // 1. FIX THE HEIGHT: 
+        // We set the container height to the viewport height minus the Navbar/Padding (approx 100px).
+        // We hide overflow on the parent so the whole page doesn't scroll.
+        height={isNonMobileScreens ? "calc(100vh - 100px)" : "auto"}
+        sx={{
+          overflow: "hidden", 
+          position: "sticky", // Ensures the container stays put
+        }}
       >
         <Box flexBasis={isNonMobileScreens ? "26%" : undefined}>
           <UserWidget userId={_id} picturePath={picturePath} />
         </Box>
+        
         <Box
           flexBasis={isNonMobileScreens ? "42%" : undefined}
           mt={isNonMobileScreens ? undefined : "2rem"}
+          // 2. SCROLLABLE MIDDLE SECTION:
+          // We set height to 100% to fill the parent.
+          // We allow Y-axis scrolling.
+          // We add CSS to hide the scrollbar visually.
+          sx={isNonMobileScreens ? {
+            height: "100%", 
+            overflowY: "scroll",
+            // Hide Scrollbar for Chrome/Safari/Opera
+            "&::-webkit-scrollbar": {
+              display: "none",
+            },
+            // Hide Scrollbar for Firefox
+            "scrollbarWidth": "none",
+            // Hide Scrollbar for IE/Edge
+            "-ms-overflow-style": "none", 
+          } : undefined}
         >
           <MyPostWidget picturePath={picturePath} />
           <PostsWidget userId={_id} />
         </Box>
+        
         {isNonMobileScreens && (
           <Box flexBasis="26%">
             <AdvertWidget />

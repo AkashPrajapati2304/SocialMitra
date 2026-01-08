@@ -8,7 +8,7 @@ const UserImage = ({ image, size = "60px" }) => {
         width={size}
         height={size}
         alt="user"
-        src={`https://socialmitra-q3tf.onrender.com/assets/${image}`}
+        src={`http://localhost:4001/assets/${image}`}
       />
     </Box>
   );

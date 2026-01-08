@@ -18,6 +18,11 @@ const postSchema = mongoose.Schema(
     description: String,
     picturePath: String,
     userPicturePath: String,
+    // Add this new field
+    mediaType: {
+      type: String,
+      default: "image", // can be "image", "video", "audio", "file"
+    },
     likes: {
       type: Map,
       of: Boolean,

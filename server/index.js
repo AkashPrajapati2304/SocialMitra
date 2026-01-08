@@ -29,22 +29,18 @@ app.use(helmet.crossOriginResourcePolicy({ policy: "cross-origin" }));
 app.use(morgan("common"));
 app.use(bodyParser.json({ limit: "30mb", extended: true }));
 app.use(bodyParser.urlencoded({ limit: "30mb", extended: true }));
-const corsOptions = {
-  origin: ["https://socialmitra-q3tf.onrender.com"],
-  credentials: true,
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-app.use(cors(corsOptions));
-app.use("/assets", express.static(path.join(__dirname, "public/assets")));
+app.use(cors());
+app.use("/assets", express.static(path.join(__dirname, 'public/assets')));
+
 
 /* File Storage */
 const storage = multer.diskStorage({
-  destination: function (req, file, cb) {
-    cb(null, "public/assets");
-  },
-  filename: function (req, file, cb) {
-    cb(null, file.originalname);
-  },
+    destination: function (req, file, cb) {
+        cb(null, "public/assets");
+    },
+    filename: function (req, file, cb) {
+        cb(null, file.originalname);
+    }
 });
 const upload = multer({ storage });
 
@@ -60,25 +56,22 @@ app.use("/posts", postRoutes);
 /* Mongoose Setup */
 const PORT = process.env.PORT || 6001;
 mongoose
-  .connect(process.env.MONGO_URL, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
-  .then(() => {
-    console.log("Successfully connected to MongoDB");
-    app.listen(PORT, () => {
-      console.log(`Server running on port: ${PORT}`);
-      console.log(
-        `MongoDB connected: ${
-          process.env.MONGO_URL.split("@")[1].split("/")[0]
-        }`
-      );
-    });
+    .connect(
+        process.env.MONGO_URL, {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+    })
+    .then(() => {
+        app.listen(PORT, () => { console.log(`Server Port: ${PORT}`) });
+        
+        /* Add One Time */
+        // User.insertMany(users);
+        // Post.insertMany(posts);
 
-    /* Add One Time */
-    // User.insertMany(users);
-    // Post.insertMany(posts);
-  })
-  .catch((error) => {
-    console.log(`${error} did not connect`);
-  });
+    })
+    .catch((error) => { console.log(`${error} did not connect`) });
+
+
+
+
+

@@ -2,9 +2,11 @@ import Post from "../models/Posts.js";
 import User from "../models/User.js";
 
 /* Create */
+/* Create */
 export const createPost = async (req, res) => {
   try {
-    const { userId, description, picturePath } = req.body;
+    // Destructure mediaType from the body
+    const { userId, description, picturePath, mediaType } = req.body;
     const user = await User.findById(userId);
     const newPost = new Post({
       userId,
@@ -14,6 +16,7 @@ export const createPost = async (req, res) => {
       description,
       userPicturePath: user.picturePath,
       picturePath,
+      mediaType: mediaType || "image", // Save the media type, default to image
       likes: {},
       comments: [],
     });
@@ -26,6 +29,7 @@ export const createPost = async (req, res) => {
     res.status(409).json({ message: err.message });
   }
 };
+// ... rest of the file remains the same
 
 /* Read */
 export const getFeedPosts = async (req, res) => {

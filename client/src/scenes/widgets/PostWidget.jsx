@@ -22,6 +22,7 @@ const PostWidget = ({
   userPicturePath,
   likes,
   comments,
+  mediaType = "image", // Default to image if undefined
 }) => {
   const [isComments, setIsComments] = useState(false);
   const dispatch = useDispatch();
@@ -35,17 +36,14 @@ const PostWidget = ({
   const primary = palette.primary.main;
 
   const patchLike = async () => {
-    const response = await fetch(
-      `https://socialmitra-q3tf.onrender.com/posts/${postId}/like`,
-      {
-        method: "PATCH",
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ userId: loggedInUserId }),
-      }
-    );
+    const response = await fetch(`http://localhost:4001/posts/${postId}/like`, {
+      method: "PATCH",
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ userId: loggedInUserId }),
+    });
     const updatedPost = await response.json();
     dispatch(setPost({ post: updatedPost }));
   };
@@ -61,15 +59,45 @@ const PostWidget = ({
       <Typography color={main} sx={{ mt: "1rem" }}>
         {description}
       </Typography>
+      
+      {/* --- START MEDIA RENDERING SECTION --- */}
       {picturePath && (
-        <img
-          width="100%"
-          height="auto"
-          alt="post"
-          style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://socialmitra-q3tf.onrender.com/assets/${picturePath}`}
-        />
+        <Box mt="0.75rem">
+          {mediaType === "image" && (
+            <img
+              width="100%"
+              height="auto"
+              alt="post"
+              style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+              src={`http://localhost:4001/assets/${picturePath}`}
+            />
+          )}
+          
+          {mediaType === "video" && (
+            <video
+              width="100%"
+              height="auto"
+              controls
+              style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
+            >
+              <source src={`http://localhost:4001/assets/${picturePath}`} type="video/mp4" />
+              Your browser does not support the video tag.
+            </video>
+          )}
+
+          {mediaType === "audio" && (
+            <audio
+              controls
+              style={{ width: "100%", marginTop: "0.75rem" }}
+            >
+              <source src={`http://localhost:4001/assets/${picturePath}`} type="audio/mpeg" />
+              Your browser does not support the audio element.
+            </audio>
+          )}
+        </Box>
       )}
+      {/* --- END MEDIA RENDERING SECTION --- */}
+
       <FlexBetween mt="0.25rem">
         <FlexBetween gap="1rem">
           <FlexBetween gap="0.3rem">
