@@ -47,7 +47,7 @@ const ChatContactsWidget = ({ allUsers }) => {
             <div className="flex items-center p-4 hover:bg-gray-50 transition-colors duration-150 ease-in-out rounded-lg cursor-pointer">
               <div className="w-10 h-10 mr-4 rounded-full border-2 border-red">
                 <img
-                  src={`https://social-mitra-29kz.vercel.app/assets/${conversation.picturePath}`}
+                  src={`https://socialmitra-q3tf.onrender.com/assets/${conversation.picturePath}`}
                   alt="user"
                   // width={40}
                   className="rounded-full border-2 border-red w-12 h-12 rounded-full object-cover border-2 border-gray-200"

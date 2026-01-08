@@ -36,7 +36,7 @@ const PostWidget = ({
 
   const patchLike = async () => {
     const response = await fetch(
-      `https://social-mitra-29kz.vercel.app/posts/${postId}/like`,
+      `https://socialmitra-q3tf.onrender.com/posts/${postId}/like`,
       {
         method: "PATCH",
         headers: {
@@ -67,7 +67,7 @@ const PostWidget = ({
           height="auto"
           alt="post"
           style={{ borderRadius: "0.75rem", marginTop: "0.75rem" }}
-          src={`https://social-mitra-29kz.vercel.app/assets/${picturePath}`}
+          src={`https://socialmitra-q3tf.onrender.com/assets/${picturePath}`}
         />
       )}
       <FlexBetween mt="0.25rem">

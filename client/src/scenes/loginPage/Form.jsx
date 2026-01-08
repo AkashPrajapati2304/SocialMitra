@@ -66,7 +66,7 @@ const Form = () => {
     formData.append("picturePath", values.picture.name);
 
     const savedUserResponse = await fetch(
-      "https://social-mitra-29kz.vercel.app/auth/register",
+      "https://socialmitra-q3tf.onrender.com/auth/register",
       {
         method: "POST",
         body: formData,
@@ -82,7 +82,7 @@ const Form = () => {
 
   const login = async (values, onSubmitProps) => {
     const loggedInResponse = await fetch(
-      "https://social-mitra-29kz.vercel.app/auth/login",
+      "https://socialmitra-q3tf.onrender.com/auth/login",
       {
         method: "POST",
         headers: { "Content-Type": "application/json" },

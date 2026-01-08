@@ -15,7 +15,7 @@ const MessagePage = () => {
 
   const getAllUsers = async () => {
     const response = await fetch(
-      `https://social-mitra-29kz.vercel.app/users/allusers/users`,
+      `https://socialmitra-q3tf.onrender.com/users/allusers/users`,
       {
         method: "GET",
         headers: { Authorization: `Bearer ${token}` },
